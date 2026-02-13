@@ -36,9 +36,8 @@ Platform engineering is the discipline of creating and managing an internal deve
 - Internal Developer Platform (IDP): A dedicated platform built by the platform engineering team that provides a curated set of tools, services, and infrastructure.
 - Golden Paths: Predefined, optimized workflows and best practices that developers can follow to accomplish common tasks quickly and easily.
 - Treating the platform as a product: Platform engineers treat their IDP like a product, with developers as their customers, to ensure it meets the needs of the organization.
-<br>
 
-### Read more:
+### Documentation:
 
 - [What is platform engineering? - IBM](https://www.ibm.com/think/topics/platform-engineering)
 - [Understanding platform engineering - Red Hat](https://www.redhat.com/en/topics/platform-engineering)
