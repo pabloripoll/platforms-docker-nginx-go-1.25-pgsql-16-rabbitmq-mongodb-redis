@@ -145,7 +145,7 @@ clear: ## removes container from Docker running containers
 	cd docker && $(DOCKER_COMPOSE) down -v --remove-orphans || true
 
 destroy: ## delete container image from Docker cache
-	cd docker && $(DOCKER) rmi -f $(DOCKER_CONTAINER):$(DOCKER_IMGK)
+	cd docker && $(DOCKER) rmi -f $(DOCKER_IMGK)
 	$(SUDO) rm -rf ./data ./log
 
 dev: ## sets a development enviroment
