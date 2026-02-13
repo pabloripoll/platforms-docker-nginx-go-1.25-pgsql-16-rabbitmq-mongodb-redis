@@ -2,15 +2,13 @@
     <img src="./resources/docs/images/pr-banner-long.png">
 </div>
 
-# WORKTIME CONTROLLER - GOLANG
+# INFRASTRUCTURE PLATFORM FOR GOLANG
 
 [![Generic badge](https://img.shields.io/badge/version-1.0-blue.svg)](https://shields.io/)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](./)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-## INFRASTRUCTURE PLATFORM REPOSITORY
-
-This Infrastructure Platform repository is designed for back-end projects and provides three separate platforms:
+This Infrastructure Platform repository is designed for back-end projects and provides separate platforms:
 
 - **REST API Platform:** Linux Alpine version 3.22 + NGINX version 1.28 *(or the latest on Alpine Package Keeper)* + GO 1.25
 - **Core Database Platform:** Linux Alpine version 3.20 + Postgres 16.4
