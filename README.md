@@ -2,19 +2,22 @@
     <img src="./resources/docs/images/pr-banner-long.png">
 </div>
 
-# WORK TIME CONTROLLER - INFRASTRUCTURE PLATFORM FOR GO + POSTGRE
+# WORKTIME CONTROLLER - GOLANG
 
 [![Generic badge](https://img.shields.io/badge/version-1.0-blue.svg)](https://shields.io/)
 [![Open Source? Yes!](https://badgen.net/badge/Open%20Source%20%3F/Yes%21/blue?icon=github)](./)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 
-<br>
+## INFRASTRUCTURE PLATFORM REPOSITORY
 
 This Infrastructure Platform repository is designed for back-end projects and provides three separate platforms:
 
-- API Platform: Linux Alpine version 3.21 + NGINX version 1.28 *(or the latest on Alpine Package Keeper)* + GO 1.25
-- Database Platform: Linux Alpine version 3.22 + Postgres 16.4
-- Mail Service Platform: Linux Alpine version 3.12 + Mailhog 1.0
+- **REST API Platform:** Linux Alpine version 3.22 + NGINX version 1.28 *(or the latest on Alpine Package Keeper)* + GO 1.25
+- **Core Database Platform:** Linux Alpine version 3.20 + Postgres 16.4
+- **Mail Service Platform:** Linux Alpine version 3.12 + Mailhog 1.0
+- **Documentation Database Platform:** MongoDB 8.2 *(editable version)*
+- **Cache Database Platform:** Linux Alpine version 3.23 + Redis 8.6
+- **Message Broker Platform:** RabbitMQ 4.2 *(editable version)*
 
 The goal of this repository is to offer developers a consistent framework for local development, mirroring real-world deployment scenarios. In production, the API may be deployed on an AWS EC2 / GCP GCE or instance or distributed across Kubernetes pods, while the database would reside on an AWS RDS instance. thus, network connection between platforms are decoupled.
 
@@ -43,31 +46,17 @@ Platform engineering is the discipline of creating and managing an internal deve
 - [What is an internal developer platform (IDP)? - Google Cloud](https://cloud.google.com/solutions/platform-engineering)
 - [What is platform engineering? - Microsoft](https://learn.microsoft.com/en-us/platform-engineering/what-is-platform-engineering)
 - [What is Platform engineering? - Github](https://github.com/resources/articles/what-is-platform-engineering)
-<br>
-
-## Contents:
-
-- [Use this Platform Repository for REST API project](#platform-usage)
 <br><br>
 
-## <a id="platform-usage"></a>Use this Platform Repository for your own REST API repository
-
-Clone the platforms repository
-```bash
-$ git clone https://github.com/pabloripoll/worktc-platform-go-postgre.git
-$ cd worktc-platform-go-postgre
-```
+## <a id="platform-usage"></a>Use this Platform Repository for your own REST API repositories
 
 Repository directories structure overview:
-```
+```bash
 .
-├── apirest (Fiber, Viper, etc.)
-│   ├── src
-│   ├── static
-│   ├── main.go
-│   └── ...
+├── apirest         # Core directory binded in Docker main container for back-end
+│   └── ...         # sub-module or detach with the real project respository
 │
-├── ./platform
+├── platform
 │   ├── mailhog-1.0
 │   │   ├── Makefile
 │   │   └── docker
@@ -97,10 +86,6 @@ Repository directories structure overview:
 │   │       │       ├── conf.d
 │   │       │       │   ├── go.conf
 │   │       │       │   └── nginx.conf
-│   │       │       ├── conf.d-sample
-│   │       │       │   ├── go-dev.conf
-│   │       │       │   ├── go-pro.conf
-│   │       │       │   └── nginx.conf
 │   │       │       └── supervisord.conf
 │   │       ├── docker-compose.network.yml
 │   │       └── docker-compose.yml
@@ -122,8 +107,6 @@ Repository directories structure overview:
 │   │       ├── config
 │   │       │   ├── conf.d
 │   │       │   │   └── rabbitmq.conf
-│   │       │   └── conf.d-sample
-│   │       │       └── rabbitmq.conf
 │   │       ├── docker-compose.network.yml
 │   │       └── docker-compose.yml
 │   │
@@ -135,22 +118,39 @@ Repository directories structure overview:
 │           ├── config
 │           │   ├── conf.d
 │           │   │   └── redis.conf
-│           │   └── conf.d-sample
-│           │       └── redis.conf
 │           ├── docker-compose.network.yml
 │           ├── docker-compose.yml
 │           └── docker-entrypoint.sh
 │
-├── .env
-├── Makefile
+├── resources
+│   ├── apirest         # sub-module or detach with the real project respository
+│   ├── apirest-sample
+│   │   └── ...         # default application to mount on installation
+│   ├── automation
+│   │   ├── local
+│   │   │   ├── Makefile
+│   │   │   └── Makefile.child
+│   │   └── remote
+│   │       └── Makefile
+│   ├── databases
+│   │   ├── pgsql-backup.sql
+│   │   └── pgsql-init.sql
+│   └── docs
+│       └── images
+│           ├── pr-banner-long.png
+│           └── ...
+│
+├── .env          # Platforms main values applied
+├── .env.example  # Platforms main values example
+├── Makefile      # Automated commands into recipes
 └── README.md
 ```
 <br>
 
 Set up platforms
 
-- Copy `.env.example` to `.env` and adjust settings (rest api port, database port, mail service port, container RAM usage, etc.)
-- By configuring the PHPcontainer with e.g. `APIREST_CAAS_MEM=128M`, remember to set the same RAM value into `./platform/nginx-php/docker/config/php/php.ini`
+- Copy `.env.example` to `.env` and adjust platforms settings (rest api port, database port, mail service port, container RAM usage, etc.)
+- By configuring the REST API container with e.g. `APIREST_CAAS_MEM=128M` *(CAAS = Container As A Service)*, remember to set the same RAM value into container local configuration files that will be mounted into the container.
 <br>
 
 Here’s a step-by-step guide for using this Platform repository along with your own REST API repository:
@@ -162,32 +162,36 @@ Here’s a step-by-step guide for using this Platform repository along with your
 
 ### Estimated consumption
 
-This is the overview of the estimated host machine consumption
+This is the overview of the estimated host machine consumption:
+- *Your local values could be slightly different*
+- *(?) Your custom project abbreviation*
 ```
-CONTAINER ID   NAME                          CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O         PIDS
-4afa058af7a9   wtc-snf-pgsql-dev             0.04%     21.23MiB / 128MiB   16.59%    1.17kB / 126B     1.47MB / 59.5MB   6
-e209405673a1   wtc-snf-mailhog-dev           0.00%     4.902MiB / 128MiB   3.83%     1.3kB / 126B      0B / 0B           6
-ab6c3306a0cd   wtc-snf-mongodb-dev-express   0.00%     39.11MiB / 128MiB   30.55%    202kB / 73.1kB    0B / 0B           12
-98aba2a2da76   wtc-snf-mongodb-dev           1.35%     151.3MiB / 512MiB   29.55%    78.5kB / 202kB    0B / 12.9MB       53
-56ce79ca6c04   wtc-snf-rabbitmq-dev          0.25%     96.2MiB / 128MiB    75.16%    1.37kB / 126B     22.8MB / 17.2MB   37
-d7b90998b52b   wtc-snf-redis-dev             0.53%     8.398MiB / 128MiB   6.56%     4.62kB / 3.77kB   12.3kB / 28.7kB   6
-fad4ece8a496   wtc-snf-apirest-dev           0.04%     55.68MiB / 512MiB   10.87%    35.1kB / 25.8kB   1.65MB / 3.5MB    11
+$ sudo docker stats
 
-NAME                          CPU %     MEM USAGE  /  LIMIT    MEM %
-wtc-snf-pgsql-dev             0.04%     21.23MiB   /  128MiB   16.59%
-wtc-snf-mailhog-dev           0.00%     4.902MiB   /  128MiB   3.83%
-wtc-snf-mongodb-dev-express   0.00%     39.11MiB   /  128MiB   30.55%
-wtc-snf-mongodb-dev           1.35%     151.3MiB   /  512MiB   29.55%
-wtc-snf-rabbitmq-dev          0.25%     96.2MiB    /  128MiB   75.16%
-wtc-snf-redis-dev             0.53%     8.398MiB   /  128MiB   6.56%
-wtc-snf-apirest-dev           0.04%     55.68MiB   /  512MiB   10.87%
+CONTAINER ID   NAME                      CPU %     MEM USAGE / LIMIT   MEM %     NET I/O           BLOCK I/O         PIDS
+4afa058af7a9   (?)-pgsql-dev             0.04%     21.23MiB / 128MiB   16.59%    1.17kB / 126B     1.47MB / 59.5MB   6
+e209405673a1   (?)-mailhog-dev           0.00%     4.902MiB / 128MiB   3.83%     1.3kB / 126B      0B / 0B           6
+ab6c3306a0cd   (?)-mongodb-dev-express   0.00%     39.11MiB / 128MiB   30.55%    202kB / 73.1kB    0B / 0B           12
+98aba2a2da76   (?)-mongodb-dev           1.35%     151.3MiB / 512MiB   29.55%    78.5kB / 202kB    0B / 12.9MB       53
+56ce79ca6c04   (?)-rabbitmq-dev          0.25%     96.2MiB  / 128MiB   75.16%    1.37kB / 126B     22.8MB / 17.2MB   37
+d7b90998b52b   (?)-redis-dev             0.53%     8.398MiB / 128MiB   6.56%     4.62kB / 3.77kB   12.3kB / 28.7kB   6
+fad4ece8a496   (?)-apirest-dev           0.04%     55.68MiB / 512MiB   10.87%    35.1kB / 25.8kB   1.65MB / 3.5MB    11
+
+NAME                      CPU %     MEM USAGE  /  LIMIT    MEM %
+(?)-pgsql-dev             0.04%     21.23MiB   /  128MiB   16.59%
+(?)-mailhog-dev           0.00%     4.902MiB   /  128MiB   3.83%
+(?)-mongodb-dev-express   0.00%     39.11MiB   /  128MiB   30.55%
+(?)-mongodb-dev           1.35%     151.3MiB   /  512MiB   29.55%
+(?)-rabbitmq-dev          0.25%     96.2MiB    /  128MiB   75.16%
+(?)-redis-dev             0.53%     8.398MiB   /  128MiB   6.56%
+(?)-apirest-dev           0.04%     55.68MiB   /  512MiB   10.87%
 ----------------------------------------------------------------------
 --------------------------------------- 376.812MiB /  1664MiB
 ```
 
 ### Managing the `apirest` Directory: Submodule vs Detached Repository
 
-To remove the `./apirest` directory with the default installation content and install your desired repository inside it, there are two alternatives for managing both the platform and apirest repositories independently:
+To remove the default installation content in `./apirest/` directory with and install your repository instead, there are two alternatives for managing both the Platform and REST API repositories independently:
 
 #### 1. **GIT Sub-module**
 
@@ -236,7 +240,7 @@ To remove the `./apirest` directory with the default installation content and in
   ```
 
 - The `apirest` directory is now an **independent repository**, not tracked as a submodule in your main repo. You can use `git` commands freely inside `apirest` from anywhere.
-<br><br>
+<br>
 
 #### **Summary Table**
 
@@ -248,7 +252,6 @@ To remove the `./apirest` directory with the default installation content and in
 > **Note**: After new project cloned inside `./apirest`, consider adding `./apirest/.gitkeep` in it to prevent accidental tracking *(especially for detached repository)*.
 
 <br>
-
 
 ## Contributing
 
