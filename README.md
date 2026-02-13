@@ -10,7 +10,7 @@
 
 This Infrastructure Platform repository is designed for back-end projects and provides separate platforms:
 
-- **REST API Platform:** Linux Alpine version 3.22 + NGINX version 1.28 *(or the latest on Alpine Package Keeper)* + GO 1.25
+- **REST API Platform:** Linux Alpine version 3.22 + NGINX version 1.28 *(or latest by APK)* + GO 1.25
 - **Core Database Platform:** Linux Alpine version 3.20 + Postgres 16.4
 - **Mail Service Platform:** Linux Alpine version 3.12 + Mailhog 1.0
 - **Documentation Database Platform:** MongoDB 8.2 *(editable version)*
