@@ -39,17 +39,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Repository
+### --- Repository --- ###
 
 # Platforms
-/platform/pgsql-16/data
-/platform/redis-8.6/data
-/platform/mongodb-8.2/data
-/platform/rabbitmq-4.2/data
-/platform/rabbitmq-4.2/log
-/platform/mailhog-1.0/data
-/platform/mailhog-1.0/log
-/platform/pgsql-*/data
 
 # Project Schemas Samples
 /resources/docs/apirest/*

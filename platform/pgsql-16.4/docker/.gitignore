@@ -1,2 +1,4 @@
-.pgsql-data
+# .gitignore custom settings
 .env
+.pgsql-data
+/data
