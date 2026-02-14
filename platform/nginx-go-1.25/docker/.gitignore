@@ -1,0 +1,4 @@
+# Ignore custom settings
+.env
+/config/supervisor/conf.d/*
+!/config/supervisor/conf.d/.gitkeep
