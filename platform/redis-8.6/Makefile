@@ -92,10 +92,10 @@ else
 	REDIS_ROOT_PASSWORD=\"$(REDIS_ROOT_PASS)\"\r\n\
 	REDIS_APP_USER=\"$(REDIS_APP_USER)\"\r\n\
 	REDIS_APP_PASSWORD=\"$(REDIS_APP_PASS)\"" > ./docker/.env; \
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" SESSION DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - "${C_YEL}"docker-compose.yml"${C_END}" .env file "${C_GRN}"has been set."${C_END};
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" SESSION DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Container: "${C_GRN}$(DOCKER_CONTAINER)${C_END}
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" SESSION DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Max. memory usage: "${C_GRN}$(DOCKER_CAAS_MEM)${C_END}
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" SESSION DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Is going to be served at: "${C_GRN}http://127.0.0.1:$(DOCKER_PORT)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" CACHE DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - "${C_YEL}"docker-compose.yml"${C_END}" .env file "${C_GRN}"has been set."${C_END};
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" CACHE DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Container: "${C_GRN}$(DOCKER_CONTAINER)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" CACHE DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Max. memory usage: "${C_GRN}$(DOCKER_CAAS_MEM)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" CACHE DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Is going to be served at: "${C_GRN}http://127.0.0.1:$(DOCKER_PORT)${C_END}
 endif
 
 # -------------------------------------------------------------------------------------------------

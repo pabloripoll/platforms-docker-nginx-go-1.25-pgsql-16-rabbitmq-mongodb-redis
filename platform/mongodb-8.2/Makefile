@@ -95,11 +95,11 @@ else
 	MONGODB_INITDB_ROOT_PASSWORD=\"$(MONGODB_PASS)\"\r\n\
 	MONGODB_EXPRESS_USERNAME=\"$(MONGODB_APP_USER)\"\r\n\
 	MONGODB_EXPRESS_PASSWORD=\"$(MONGODB_APP_PASS)\"" > ./docker/.env; \
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" EVENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - "${C_YEL}"docker-compose.yml"${C_END}" .env file "${C_GRN}"has been set."${C_END};
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" EVENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Container: "${C_GRN}$(DOCKER_CONTAINER)${C_END}
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" EVENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Max. memory usage: "${C_GRN}$(DOCKER_MEM)${C_END}
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" EVENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Is going to be served at: "${C_GRN}http://127.0.0.1:$(DOCKER_PORT)${C_END}
-	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" EVENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" CLIENT - Is going to be served at: "${C_GRN}http://127.0.0.1:$(DOCKER_APP_PORT)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" DOCUMENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - "${C_YEL}"docker-compose.yml"${C_END}" .env file "${C_GRN}"has been set."${C_END};
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" DOCUMENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Container: "${C_GRN}$(DOCKER_CONTAINER)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" DOCUMENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Max. memory usage: "${C_GRN}$(DOCKER_MEM)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" DOCUMENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" - Is going to be served at: "${C_GRN}http://127.0.0.1:$(DOCKER_PORT)${C_END}
+	echo ${C_BLU}"$(PROJECT_NAME)"${C_END}" DOCUMENT DB "${C_YEL}$(DOCKER_PLTF)${C_END}" CLIENT - Is going to be served at: "${C_GRN}http://127.0.0.1:$(DOCKER_APP_PORT)${C_END}
 endif
 
 # -------------------------------------------------------------------------------------------------
